@@ -4,10 +4,14 @@ const Event = ({event, dispatch}) => {
     const id = event.id;
     const handleClickDeleteButton = (e) => {
         e.preventDefault();
-        dispatch({
-            type: 'DELETE_EVENT',
-            id,
-        });
+        const result = window.confirm(
+            ` Do you want to delete event (id=${id}) ?`
+        );
+        if (result)
+            dispatch({
+                type: 'DELETE_EVENT',
+                id,
+            });
     };
     return (
         <tr>
