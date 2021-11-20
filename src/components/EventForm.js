@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-
+import {CREATE_EVENT, DELETE_ALL_EVENT} from '../actions';
 const EventForm = ({state, dispatch}) => {
     // const [state, dispatch] = useReducer(reducer, []);
     const [title, setTitle] = useState('');
@@ -7,7 +7,7 @@ const EventForm = ({state, dispatch}) => {
     const addEvent = (e) => {
         e.preventDefault();
         dispatch({
-            type: 'CREATE_EVENT',
+            type: CREATE_EVENT,
             title,
             body,
         });
@@ -20,7 +20,7 @@ const EventForm = ({state, dispatch}) => {
         const result = window.confirm('Do you want to delete al event ?');
         if (result)
             dispatch({
-                type: 'DELETE_ALL_EVENT',
+                type: DELETE_ALL_EVENT,
             });
     };
 
