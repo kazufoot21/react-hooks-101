@@ -46,6 +46,18 @@ const EventForm = () => {
 
     const inCreatable = title === '' || body === '';
 
+    const deleteAllOperationLogs = (e) => {
+        e.preventDefault();
+        const result = window.confirm(
+            'Do you want to delete all operationsLogs?'
+        );
+        if (result) {
+            dispatch({
+                type: DELETE_ALL_ADD_OPERATION_LOGS,
+            });
+        }
+    };
+
     return (
         <>
             <h4>Event Create Form</h4>
@@ -82,6 +94,13 @@ const EventForm = () => {
                     disabled={state.events.length === 0}
                 >
                     Delete All Events
+                </button>
+                <button
+                    className="btn btn-danger"
+                    onClick={deleteAllOperationLogs}
+                    disabled={state.operationLogs.length === 0}
+                >
+                    Delete All OperationLogs
                 </button>
             </form>
         </>
