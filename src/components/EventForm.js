@@ -1,17 +1,29 @@
 import React, {useState, useContext} from 'react';
-import {CREATE_EVENT, DELETE_ALL_EVENT} from '../actions';
+import {
+    CREATE_EVENT,
+    DELETE_ALL_EVENT,
+    ADD_OPERATION_LOG,
+    DELETE_ALL_ADD_OPERATION_LOGS,
+} from '../actions';
 import AppContext from '../contexts/AppContext';
+import {timeCurrentISO8601} from '../utils';
 
 const EventForm = () => {
     const {state, dispatch} = useContext(AppContext);
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
+
     const addEvent = (e) => {
         e.preventDefault();
         dispatch({
             type: CREATE_EVENT,
             title,
             body,
+        });
+        dispatch({
+            type: ADD_OPERATION_LOG,
+            description: 'created event.',
+            operatedAt: timeCurrentISO8601(),
         });
         setTitle('');
         setBody('');
@@ -20,10 +32,16 @@ const EventForm = () => {
     const deleteAllEvents = (e) => {
         e.preventDefault();
         const result = window.confirm('Do you want to delete al event ?');
-        if (result)
+        if (result) {
             dispatch({
                 type: DELETE_ALL_EVENT,
             });
+            dispatch({
+                type: ADD_OPERATION_LOG,
+                description: 'deleted all events.',
+                operatedAt: timeCurrentISO8601(),
+            });
+        }
     };
 
     const inCreatable = title === '' || body === '';
