@@ -6,7 +6,10 @@ import EventForm from './EventForm';
 import AppContext from '../contexts/AppContext';
 
 const App = () => {
-    const [state, dispatch] = useReducer(reducer, []);
+    const initialState = {
+        events: [],
+    };
+    const [state, dispatch] = useReducer(reducer, initialState);
     return (
         <AppContext.Provider value={{state, dispatch}}>
             <div className="container-fluid">
